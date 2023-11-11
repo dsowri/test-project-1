@@ -1,17 +1,21 @@
 pipeline {
     agent any
+
     stages {
         stage('SCM') {
             steps {
-                git url: 'https://github.com/dsowri/test-project-1.git'
+                script {
+                    git 'https://github.com/foo/bar.git'
+                }
             }
         }
-        stage('build && SonarQube analysis') {
+
+        stage('SonarQube analysis') {
             steps {
-                withSonarQubeEnv('sonarqube-1') {
-                    // Optionally use a Maven environment you've configured already
-                    withMaven(maven: 'Maven 3.5') {
-                        sh 'mvn clean package sonar:sonar'
+                script {
+                    def scannerHome = tool 'SonarScanner 4.0'
+                    withSonarQubeEnv('sonarqube-1') {
+                        sh "${scannerHome}/bin/sonar-scanner"
                     }
                 }
             }
