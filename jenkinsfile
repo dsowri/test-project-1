@@ -1,6 +1,7 @@
 pipeline {
-    agent any
-
+    agent{
+        label "sonarqube-node-1"
+    }
     stages {
         stage('SCM') {
             steps {
@@ -10,12 +11,12 @@ pipeline {
             }
         }
 
-        stage('SonarQube analysis') {
+        stage('build && SonarQube analysis') {
             steps {
-                script {
-                    def scannerHome = tool 'SonarQube Scanner 5.0.1.3006'
-                    withSonarQubeEnv('sonarqube-1') {
-                        sh "${scannerHome}/bin/sonar-scanner"
+                withSonarQubeEnv('My SonarQube Server') {
+                    // Optionally use a Maven environment you've configured already
+                    withMaven(maven:'Maven 3.9.5') {
+                        sh 'mvn clean package sonar:sonar'
                     }
                 }
             }
