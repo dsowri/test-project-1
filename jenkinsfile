@@ -5,7 +5,7 @@ pipeline {
     stages {
         stage('SCM') {
             steps {
-                git 'https://github.com/dsowri/test-project-1.git'
+                git branch: 'main', url: 'https://github.com/dsowri/test-project-1.git'
             }
         }
         stage('Build and SonarQube Analysis') {
