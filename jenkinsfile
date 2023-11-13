@@ -1,21 +1,19 @@
 pipeline {
-    agent{
+    agent {
         label "sonarqube-node-1"
     }
     stages {
         stage('SCM') {
             steps {
-                script {
-                    git 'https://github.com/dsowri/test-project-1.git'
-                }
+                git 'https://github.com/dsowri/test-project-1.git'
             }
         }
 
-        stage('build && SonarQube analysis') {
+        stage('Build and SonarQube Analysis') {
             steps {
                 withSonarQubeEnv('My SonarQube Server') {
                     // Optionally use a Maven environment you've configured already
-                    withMaven(maven:'Maven 3.9.5') {
+                    withMaven(maven: 'Maven 3.9.5') {
                         sh 'mvn clean package sonar:sonar'
                     }
                 }
@@ -23,3 +21,4 @@ pipeline {
         }
     }
 }
+
