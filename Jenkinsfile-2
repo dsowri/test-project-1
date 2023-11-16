@@ -4,7 +4,7 @@ pipeline {
     stages {
         stage('SCM and Build on Master') {
             agent {
-                label "master-node"
+                label "master"
             }
             steps {
                 // Checkout source code and build on master
@@ -19,14 +19,14 @@ pipeline {
 
         stage('SonarQube Analysis on Worker Node') {
             agent {
-                label "sonarqube-node-1"
+                label "linux-slave"
             }
             steps {
                 // Unstash the built artifact(s) on the worker node
                 unstash 'my-artifacts'
                 
                 // Run SonarQube analysis on worker node
-                withSonarQubeEnv('sonarqube-1') {
+                withSonarQubeEnv('sonarqube-server-1') {
                     withMaven(maven: 'Maven 3.9.5') {
                         sh 'mvn sonar:sonar'
                     }
