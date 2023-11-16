@@ -13,7 +13,7 @@ pipeline {
                     sh 'mvn clean package'
                 }
                 // Stash the built artifact(s)
-                stash includes: 'target/*.jar', name: 'my-artifacts'
+                stash includes: 'target/*.jar, target/*.war', name: 'my-artifacts'
             }
         }
 
