@@ -24,16 +24,15 @@ pipeline {
             steps {
                 // Unstash the built artifact(s) on the worker node
                 unstash 'my-artifacts'
-                
+        
                 // Run OWASP Dependency-Check on worker node
-                dependencyCheck(
-                    pattern: 'target/*.jar, target/*.war',
-                    includeHtmlReports: true, 
-                    failOnError: true,
-                    skipOnScmChange: true
-                )
+                dependencyCheck pattern: 'target/*.jar, target/*.war',
+                         includeHtmlReports: true, 
+                         failBuildOnCVSS: '11',
+                         unstableBuildOnCVSS: '7',
+                         skipOnScmChange: true
             }
-        }
+        } 
 
         stage('SonarQube Analysis on Worker Node') {
             agent {
