@@ -1,1 +1,55 @@
+pipeline {
+    agent any
 
+    stages {
+        stage('SCM and Build on Master') {
+            agent {
+                label "master-node"
+            }
+            steps {
+                // Checkout source code and build on master
+                git branch: 'main', url: 'https://github.com/dsowri/test-project-1.git'
+                withMaven(maven: 'Maven 3.9.5') {
+                    sh 'mvn clean package'
+                }
+                // Stash the built artifact(s)
+                stash includes: 'target/*.jar, target/*.war', name: 'my-artifacts'
+            }
+        }
+
+        stage('OWASP Dependency-Check') {
+            agent {
+                label "worker-node-1"
+            }
+            steps {
+                // Unstash the built artifact(s) on the worker node
+                unstash 'my-artifacts'
+                
+                // Run OWASP Dependency-Check on worker node
+                dependencyCheck(
+                    pattern: 'target/*.jar, target/*.war',
+                    includeHtmlReports: true, 
+                    failOnError: true
+                    skipOnScmChange: true
+                )
+            }
+        }
+
+        stage('SonarQube Analysis on Worker Node') {
+            agent {
+                label "worker-node-1"
+            }
+            steps {
+                // Unstash the built artifact(s) on the worker node
+                unstash 'my-artifacts'
+                
+                // Run SonarQube analysis on worker node
+                withSonarQubeEnv('sonarqube-server-1') {
+                    withMaven(maven: 'Maven 3.9.5') {
+                        sh 'mvn sonar:sonar'
+                    }
+                }
+            }
+        }
+    }
+}
