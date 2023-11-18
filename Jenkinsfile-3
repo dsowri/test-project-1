@@ -25,12 +25,11 @@ pipeline {
                 // Unstash the built artifact(s) on the worker node
                 unstash 'my-artifacts'
         
-                // Run OWASP Dependency-Check on worker node
-                dependencyCheck pattern: 'target/*.jar, target/*.war',
-                         includeHtmlReports: true, 
-                         failBuildOnCVSS: '11',
-                         unstableBuildOnCVSS: '7',
-                         skipOnScmChange: true
+                dependencyCheckPublisher(
+                    pattern: 'pom.xml', 
+                    includeHtmlReports: true, 
+                    failOnError: true
+                )
             }
         } 
 
