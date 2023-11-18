@@ -29,7 +29,7 @@ pipeline {
                 dependencyCheck(
                     pattern: 'target/*.jar, target/*.war',
                     includeHtmlReports: true, 
-                    failOnError: true
+                    failOnError: true,
                     skipOnScmChange: true
                 )
             }
