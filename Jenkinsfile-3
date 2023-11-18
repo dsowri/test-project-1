@@ -25,11 +25,7 @@ pipeline {
                 // Unstash the built artifact(s) on the worker node
                 unstash 'my-artifacts'
         
-                dependencyCheckPublisher(
-                    pattern: 'pom.xml', 
-                    includeHtmlReports: true, 
-                    failOnError: true
-                )
+                dependencyCheck additionalArguments: '--format HTML', odcInstallation: 'OWASP-DC'
             }
         } 
 
