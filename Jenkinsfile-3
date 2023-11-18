@@ -38,7 +38,7 @@ pipeline {
                 unstash 'my-artifacts'
                 
                 // Run SonarQube analysis on worker node
-                withSonarQubeEnv('sonarqube-server-1') {
+                withSonarQubeEnv('sonarqube-1') {
                     withMaven(maven: 'Maven 3.9.5') {
                         sh 'mvn sonar:sonar'
                     }
