@@ -27,9 +27,7 @@ pipeline {
                     unstash 'my-artifacts'
 
                     // Run Snyk test
-                    withSnykSecurityToken(credentialsId: 'snyk-token-1') {
-                        sh 'snyk test'
-                    }
+                    snykSecurity(credentialsId: 'snyk-token-1')
                 }
             }
         }
