@@ -26,10 +26,8 @@ pipeline {
                     // Unstash the built artifact(s) on the worker node
                     unstash 'my-artifacts'
 
-                    // Authenticate with Snyk using Jenkins credentials
-                    withCredentials([string(credentialsId: 'snyk-token-1', variable: 'SNYK_API_TOKEN')]) {
-                        // Run Snyk test
-                        sh "snyk auth $SNYK_API_TOKEN"
+                    // Run Snyk test
+                    withSnykSecurityToken(credentialsId: 'snyk-token-1') {
                         sh 'snyk test'
                     }
                 }
