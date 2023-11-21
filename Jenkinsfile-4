@@ -28,7 +28,6 @@ pipeline {
 
                     // Run Snyk test
                     snykSecurity failOnError: false, severity: 'high',  snykInstallation: 'Snyk', snykTokenId: 'snyk-token-1'
-                    sh 'snyk test'
                 }
             }
         }
