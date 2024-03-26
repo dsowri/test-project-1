@@ -1,3 +1,4 @@
+original jenkins file
 pipeline {
     agent any
 
@@ -27,11 +28,8 @@ pipeline {
                 
                 // Run SonarQube analysis on worker node
                 withSonarQubeEnv('sonarqube-server-1') {
-                    script {
-                        def scannerHome = tool 'sonarqube-scanner-1'; // Ensure this tool name matches the one configured in Jenkins
-                        withEnv(["PATH+SONARSCANNER=${scannerHome}/bin"]) {
-                            sh 'sonar-scanner'
-                        }
+                    withMaven(maven: 'Maven 3.9.5') {
+                        sh 'mvn sonar:sonar'
                     }
                 }
             }
