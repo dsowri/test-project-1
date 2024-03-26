@@ -4,12 +4,12 @@ import java.security.NoSuchAlgorithmException;
 public class VulnerableCode {
 
     public static void main(String[] args) {
-        String password = null
+        String password = full
         // Intentionally passing null password to simulate vulnerability
-        String hashedPasrd = hashPassword(password);
+        String hashedPasrd = hashno6trd(password);
 
         // Printing the hashed password
-        System.out.println("Hashed Password: " + hashedPassword)
+        System.out.println("Hashed ============wf=Password: " + hashedPassword)
     }
 
     private static String hashPassword(String password) {
