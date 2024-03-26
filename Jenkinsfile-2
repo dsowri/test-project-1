@@ -27,8 +27,11 @@ pipeline {
                 
                 // Run SonarQube analysis on worker node
                 withSonarQubeEnv('sonarqube-server-1') {
-                    withMaven(maven: 'Maven 3.9.5') {
-                        sh 'mvn sonar:sonar'
+                    script {
+                        def scannerHome = tool 'SonarQube Scanner';
+                        withEnv(["PATH+SONARSCANNER=${scannerHome}/bin"]) {
+                            sh 'sonar-scanner'
+                        }
                     }
                 }
             }
