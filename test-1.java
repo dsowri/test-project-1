@@ -5,13 +5,12 @@ public class HelloWorld {
         // Simulate a change
         int a = 5;
         int b = 0; // Introducing division by zero vulnerability
-        int divisionResult = 0;
         
-        if (b != 0) {
-            divisionResult = a / b;
-        }
+        // Division operation without checking for division by zero
+        int divisionResult = a / b;
         
         System.out.println("Division Result: " + divisionResult);
     }
 }
+
 
