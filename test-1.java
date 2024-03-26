@@ -1,12 +1,13 @@
-public class HTMLGenerator {
-    public static void main(String[] args) {
-        StringBuilder htmlContent = new StringBuilder();
-        htmlContent.append("<html>\n");
-        htmlContent.append("<body>\n");
-        htmlContent.append("<h2>Howdy folks!!!! Welcome to Webhook from GitHub to Jenkins!!!</h2>\n");
-        htmlContent.append("</body>\n");
-        htmlContent.append("</html>\n");
+Actual code
 
-        System.out.println(htmlContent.toString());
+public class HelloWorld {
+    public static void main(String[] args) {
+        System.out.println("Hello, Jenkins and SonarQube!");
+        
+        // Simulate a change
+        int a = 5;
+        int b = 10;
+        int sum = a + b;
+        System.out.println("Sum: " + sum);
     }
 }
