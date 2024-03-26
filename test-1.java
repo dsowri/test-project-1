@@ -4,8 +4,14 @@ public class HelloWorld {
         
         // Simulate a change
         int a = 5;
-        int b = 10;
-        int sum = a + b;
-        System.out.println("Sum: " + sum);
+        int b = 0; // Introducing division by zero vulnerability
+        int divisionResult = 0;
+        
+        if (b != 0) {
+            divisionResult = a / b;
+        }
+        
+        System.out.println("Division Result: " + divisionResult);
     }
 }
+
