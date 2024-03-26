@@ -1,13 +1,15 @@
 public class VulnerableCode {
 
     public static void main(String[] args) {
-        String username = null;
-        String greeting = "Hello, ";
+        String password = null;
+        String hashedPassword = hashPassword(password);
 
-        // Concatenating username to greeting
-        String message = greeting + username;
+        // Printing the hashed password
+        System.out.println("Hashed Password: " + hashedPassword);
+    }
 
-        // Printing the message
-        System.out.println(message);
+    private static String hashPassword(String password) {
+        // Simulating password hashing
+        return password.hashCode() + "";
     }
 }
