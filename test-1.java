@@ -3,17 +3,30 @@ import java.security.NoSuchAlgorithmException;
 
 public class VulnerableCode {
 
-    public static void ma(String[] args) {
-        String password = full
-        // Intentionally passing null password to simulate vulnerability
-        String hashedPasrd = hashno6trd(password);
+    public static void main(String[] args) {
+        String password = null; // Intentionally passing null password to simulate vulnerability
+        
+        // Intentional vulnerability: Using weak hashing algorithm
+        String hashedPassword = hashPasswordMD5(password);
 
-        // Printing the hashed password
-        System.out.println("Hashed ============wf=Password: " + hashedPassword)
+        // Intentional vulnerability: Printing sensitive information
+        System.out.println("Hashed Password: " + hashedPassword);
     }
 
-    private static String hashPassword(String password) {
-        // Simulating insecure password hashing
-        return password.hashCode() + "";
+    // Intentional vulnerability: Using weak hashing algorithm (MD5)
+    private static String hashPasswordMD5(String password) {
+        try {
+            MessageDigest md = MessageDigest.getInstance("MD5");
+            md.update(password.getBytes());
+            byte[] digest = md.digest();
+            StringBuilder sb = new StringBuilder();
+            for (byte b : digest) {
+                sb.append(String.format("%02x", b & 0xff));
+            }
+            return sb.toString();
+        } catch (NoSuchAlgorithmException e) {
+            e.printStackTrace();
+            return null;
+        }
     }
 }
